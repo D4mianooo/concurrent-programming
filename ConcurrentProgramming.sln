@@ -10,8 +10,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTest", "DataTest\DataTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationView", "GraphicalUserInterface\PresentationView.csproj", "{E9A6F162-DB78-415F-BF68-F6513517B7CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{BFE1ABE4-B1B0-4736-BF78-181283915F08}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationModel", "PresentationModel\PresentationModel.csproj", "{9C71A70A-C27C-45CA-96D3-B45AC89B1841}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationModelTest", "PresentationModelTest\PresentationModelTest.csproj", "{63726A58-6422-4806-86CE-D220F78F0C91}"
@@ -19,8 +17,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationViewModel", "PresentationViewModel\PresentationViewModel.csproj", "{3157F8F4-E867-405F-9B5F-6EC3F0E6ED63}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationViewModelTest", "PresentationViewModelTest\PresentationViewModelTest.csproj", "{16FCDF50-06F1-428E-9D2F-0F2F69C6D1F4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{7AAA6049-AD43-43CF-A4C8-315B4D7CD9E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,10 +44,6 @@ Global
 		{E9A6F162-DB78-415F-BF68-F6513517B7CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9A6F162-DB78-415F-BF68-F6513517B7CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9A6F162-DB78-415F-BF68-F6513517B7CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BFE1ABE4-B1B0-4736-BF78-181283915F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFE1ABE4-B1B0-4736-BF78-181283915F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFE1ABE4-B1B0-4736-BF78-181283915F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFE1ABE4-B1B0-4736-BF78-181283915F08}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C71A70A-C27C-45CA-96D3-B45AC89B1841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C71A70A-C27C-45CA-96D3-B45AC89B1841}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C71A70A-C27C-45CA-96D3-B45AC89B1841}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -68,9 +60,5 @@ Global
 		{16FCDF50-06F1-428E-9D2F-0F2F69C6D1F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16FCDF50-06F1-428E-9D2F-0F2F69C6D1F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16FCDF50-06F1-428E-9D2F-0F2F69C6D1F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7AAA6049-AD43-43CF-A4C8-315B4D7CD9E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7AAA6049-AD43-43CF-A4C8-315B4D7CD9E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7AAA6049-AD43-43CF-A4C8-315B4D7CD9E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7AAA6049-AD43-43CF-A4C8-315B4D7CD9E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
