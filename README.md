@@ -2,7 +2,7 @@
 
 ## Working Group
 
-| Name Surname (initials) | GUID                                     |
-| ----------------------- | ---------------------------------------- |
-| DJ                      | `{FD9D086C-532F-4AAC-BB99-69D7798837D8}` |
-| IS		              | `{44FBFCF5-4430-4964-878D-1867DC679E0D}` |
+| Name Surname + Nick               | GUID                                     |
+| --------------------------------- | ---------------------------------------- |
+| Damian Jasek       D4mianooo      | `{4b604754-0be5-416c-aa9e-9688ae63f8b9}` |
+| Igor Skwarczyński  KallMeCrow	    | `{5f4f6906-1915-48b8-9ae7-166499009b42}` |
