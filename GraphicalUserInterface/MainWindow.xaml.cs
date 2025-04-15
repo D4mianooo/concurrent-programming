@@ -9,6 +9,7 @@
 
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using TP.ConcurrentProgramming.Presentation.ViewModel;
 
 namespace TP.ConcurrentProgramming.PresentationView
@@ -37,6 +38,12 @@ namespace TP.ConcurrentProgramming.PresentationView
       if (DataContext is MainWindowViewModel viewModel)
         viewModel.Dispose();
       base.OnClosed(e);
+    }
+    private void Button_Click(object sender, RoutedEventArgs e) {
+      MainWindowViewModel viewModel = (MainWindowViewModel)DataContext;
+      int.TryParse(BallsQuantity.Text, out int quantity);
+      if (quantity <= 0) return;
+      viewModel.Start(quantity);
     }
   }
 }

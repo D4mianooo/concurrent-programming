@@ -25,6 +25,7 @@ namespace TP.ConcurrentProgramming.Presentation.ViewModel
     internal MainWindowViewModel(ModelAbstractApi modelLayerAPI)
     {
       ModelLayer = modelLayerAPI == null ? ModelAbstractApi.CreateModel() : modelLayerAPI;
+      
       Observer = ModelLayer.Subscribe<ModelIBall>(x => Balls.Add(x));
     }
 
@@ -37,7 +38,6 @@ namespace TP.ConcurrentProgramming.Presentation.ViewModel
       if (Disposed)
         throw new ObjectDisposedException(nameof(MainWindowViewModel));
       ModelLayer.Start(numberOfBalls);
-      Observer.Dispose();
     }
 
     public ObservableCollection<ModelIBall> Balls { get; } = new ObservableCollection<ModelIBall>();
