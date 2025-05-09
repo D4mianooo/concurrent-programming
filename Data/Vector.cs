@@ -32,10 +32,28 @@ namespace TP.ConcurrentProgramming.Data
     /// <summary>
     /// Creates new instance of <seealso cref="Vector"/> and initialize all properties
     /// </summary>
+    /// 
+    public Vector() {
+      
+    }
     public Vector(double XComponent, double YComponent)
     {
       x = XComponent;
       y = YComponent;
     }
+    private Vector(Vector vector, double factor) {
+      x = vector.x * factor;
+      y = vector.y * factor;
+    }
+    private Vector(IVector vector, double factor) {
+      x = vector.x * factor;
+      y = vector.y * factor;
+    }
+    private Vector(Vector vector, Vector vector2) {
+      x = vector.x + vector2.x;
+      y = vector.y + vector2.y;
+    }
+    public static Vector operator *(Vector vector, double factor) => new Vector(vector, factor);
+    public static Vector operator +(Vector vector, Vector vector2) => new Vector(vector, vector2);
   }
 }

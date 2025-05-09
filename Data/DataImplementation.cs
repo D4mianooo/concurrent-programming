@@ -10,6 +10,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Numerics;
 
 namespace TP.ConcurrentProgramming.Data
 {
@@ -17,8 +18,7 @@ namespace TP.ConcurrentProgramming.Data
   {
     #region ctor
 
-    public DataImplementation()
-    {
+    public DataImplementation() {
       MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(30));
     }
 
@@ -35,7 +35,12 @@ namespace TP.ConcurrentProgramming.Data
       Random random = new Random();
       for (int i = 0; i < numberOfBalls; i++) {
         Vector startingPosition = new(random.Next(100, 400 - 100), random.Next(100, 400 - 100));
-        Ball newBall = new(startingPosition, startingPosition);
+        
+        Vector dir = new(random.NextDouble() * 2 - 1, random.NextDouble() * 2 - 1);
+        double velocity = random.NextDouble() * 4 + 1;
+        
+        Vector startingVelocity = new Vector(dir.x * velocity, dir.y * velocity);
+        Ball newBall = new(startingPosition, startingVelocity, 20, 2);
         upperLayerHandler(startingPosition, newBall);
         BallsList.Add(newBall);
       }
@@ -78,10 +83,22 @@ namespace TP.ConcurrentProgramming.Data
     private Random RandomGenerator = new();
     private List<Ball> BallsList = [];
 
-    private void Move(object? x)
-    {
-      foreach (Ball item in BallsList)
-        item.Move(new Vector((RandomGenerator.NextDouble() - 0.5) * 10, (RandomGenerator.NextDouble() - 0.5) * 10));
+    private void Move(object? x) {
+        // item.Move(new Vector((RandomGenerator.NextDouble() - 0.5) * 10, (RandomGenerator.NextDouble() - 0.5) * 10));
+        
+        foreach (Ball current in BallsList) {
+          // foreach (Ball ball in BallsList) {
+          //   if (ball != current) {
+          //     double distance = Math.Sqrt(Math.Pow(ball.Position.x - current.Position.x, 2) + Math.Pow(ball.Position.y - current.Position.y, 2));
+          //     if (distance <= current.Diameter) {
+          //       current.Velocity = Ball.Collison(current, ball);
+          //       // ball.Velocity = Ball.Collison(ball, current);
+          //       // ball.Move((Vector) ball.Velocity);
+          //     }
+          //   }
+          // }
+          current.Move((Vector) current.Velocity);
+        }
     }
 
     #endregion private

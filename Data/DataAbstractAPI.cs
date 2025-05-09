@@ -38,7 +38,7 @@ namespace TP.ConcurrentProgramming.Data
 
     #endregion private
   }
-
+  
   public interface IVector
   {
     /// <summary>
