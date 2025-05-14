@@ -157,6 +157,7 @@ namespace TP.ConcurrentProgramming.Presentation.ViewModel.Test
         #region IBall
 
         public double Diameter => throw new NotImplementedException();
+        public double Mass { get; }
 
         public double Top => throw new NotImplementedException();
 

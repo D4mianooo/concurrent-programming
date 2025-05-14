@@ -78,7 +78,6 @@ namespace TP.ConcurrentProgramming.BusinessLogic
       if (velocityAlongNormal > 0) {
         return;
       }
-      Console.Write(velocityAlongNormal);
       a.Velocity = v1 - normal * velocityAlongNormal;
       b.Velocity = v2 + normal * velocityAlongNormal;
     }

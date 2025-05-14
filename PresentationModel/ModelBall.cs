@@ -23,6 +23,8 @@ namespace TP.ConcurrentProgramming.Presentation.Model
     {
       TopBackingField = top;
       LeftBackingField = left;
+      Mass = underneathBall.Mass;
+      Diameter = underneathBall.Diameter;
       underneathBall.NewPositionNotification += NewPositionNotification;
     }
 
@@ -53,9 +55,10 @@ namespace TP.ConcurrentProgramming.Presentation.Model
     }
 
     public double Diameter { get; init; } = 0;
+    public double Mass { get; init; } = 0;
 
     #region INotifyPropertyChanged
-
+    
     public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion INotifyPropertyChanged
@@ -66,7 +69,7 @@ namespace TP.ConcurrentProgramming.Presentation.Model
 
     private double TopBackingField;
     private double LeftBackingField;
-
+    
     private void NewPositionNotification(object sender, IPosition e)
     {
       Top = e.y; Left = e.x;
