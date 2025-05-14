@@ -58,12 +58,12 @@ namespace TP.ConcurrentProgramming.BusinessLogic
               Data.Ball otherBall = balls[j];
               Vector diff = new Vector(currentBall.Position.x - otherBall.Position.x, currentBall.Position.y - otherBall.Position.y);
               double distance = Math.Sqrt(diff.x * diff.x + diff.y * diff.y);
-              if (currentBall.Diameter >= distance) {
+              if (currentBall.Diameter / 2 + otherBall.Diameter / 2 >= distance) {
                 Collison(currentBall,  otherBall);  
               }
           }
         }
-        Thread.Sleep(1);
+        Thread.Sleep(10);
       }
     }
     
@@ -75,11 +75,16 @@ namespace TP.ConcurrentProgramming.BusinessLogic
       
       Vector relativeVelocity = v1 - v2;
       double velocityAlongNormal = Vector.Dot(normal, relativeVelocity);
-      if (velocityAlongNormal > 0) {
+
+      if (velocityAlongNormal >= 0) {
         return;
       }
-      a.Velocity = v1 - normal * velocityAlongNormal;
-      b.Velocity = v2 + normal * velocityAlongNormal;
+      
+      velocityAlongNormal *= -2;
+      velocityAlongNormal *= a.Mass * b.Mass / (a.Mass + b.Mass);
+
+      a.Velocity = v1 + normal * velocityAlongNormal/a.Mass;
+      b.Velocity = v2 - normal * velocityAlongNormal/b.Mass;
     }
  
     #endregion BusinessLogicAbstractAPI
