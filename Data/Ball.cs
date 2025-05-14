@@ -39,25 +39,14 @@ namespace TP.ConcurrentProgramming.Data
     #endregion IBall
 
     #region private
-    
+
     private void RaiseNewPositionChangeNotification()
     {
       NewPositionNotification?.Invoke(this, Position);
     }
 
     internal void Move(Vector delta) {
-      if (Position.x + delta.x <= 372 && Position.x + delta.x >= 0 && Position.y + delta.y <= 392 && Position.y + delta.y >= 0) {
-        Position = new Vector(Position.x + delta.x, Position.y + delta.y);
-      }
-      else if(Position.x + delta.x >  372 || Position.x + delta.x < 0) {
-        Velocity = new Vector(-Velocity.x ,Velocity.y);
-      }
-      else if (Position.y + delta.y > 392 || Position.y + delta.y < 0) {
-        Velocity = new Vector(Velocity.x ,-Velocity.y);
-      }
-      else {
-        Velocity = new Vector(-Velocity.x,-Velocity.y);
-      }
+      Position = new Vector(Position.x + delta.x, Position.y + delta.y);
       RaiseNewPositionChangeNotification();
     }
 

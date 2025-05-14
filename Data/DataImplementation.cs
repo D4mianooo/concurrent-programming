@@ -25,7 +25,7 @@ namespace TP.ConcurrentProgramming.Data
     #region ctor
 
     public DataImplementation() {
-      MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(20));
+      MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(10));
     }
 
     #endregion ctor
@@ -46,7 +46,7 @@ namespace TP.ConcurrentProgramming.Data
         double velocity = random.NextDouble() * 4 + 1;
         
         Vector startingVelocity = new Vector(dir.x * velocity, dir.y * velocity);
-        double diameter = random.NextDouble() * 30 + 10;
+        double diameter = random.NextDouble() * 30 + 20;
         float mass = random.NextDouble() > 0.5 ? 1 : 2;
         Ball newBall = new(startingPosition, startingVelocity, (float) diameter, mass);
         upperLayerHandler(startingPosition, newBall);
