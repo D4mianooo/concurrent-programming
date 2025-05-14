@@ -64,6 +64,7 @@ namespace TP.ConcurrentProgramming.Data
       return v1.x * v2.x + v1.y * v2.y;
     }
     public static Vector Normalize(Vector vector) {
+      if(Magnitude(vector) == 0) throw new DivideByZeroException();
       return vector / Magnitude(vector);
     }
     public static Vector operator *(Vector vector, double factor) => new Vector(vector, factor);

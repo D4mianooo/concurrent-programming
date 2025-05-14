@@ -25,7 +25,7 @@ namespace TP.ConcurrentProgramming.Data
     #region ctor
 
     public DataImplementation() {
-      MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(10));
+      MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(20));
     }
 
     #endregion ctor
