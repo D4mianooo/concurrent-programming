@@ -14,16 +14,22 @@ using System.Numerics;
 
 namespace TP.ConcurrentProgramming.Data
 {
+  public class BallManager
+  {
+    private readonly List<Ball> BallsList = [];
+    public IReadOnlyList<Ball> Balls => BallsList;
+  }
+  
   internal class DataImplementation : DataAbstractAPI
   {
     #region ctor
 
     public DataImplementation() {
-      MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(30));
+      MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(10));
     }
 
     #endregion ctor
-
+    
     #region DataAbstractAPI
 
     public override void Start(int numberOfBalls, Action<IVector, IBall> upperLayerHandler)
@@ -40,10 +46,13 @@ namespace TP.ConcurrentProgramming.Data
         double velocity = random.NextDouble() * 4 + 1;
         
         Vector startingVelocity = new Vector(dir.x * velocity, dir.y * velocity);
-        Ball newBall = new(startingPosition, startingVelocity, 20, 2);
+        Ball newBall = new(startingPosition, startingVelocity, 20, 1);
         upperLayerHandler(startingPosition, newBall);
         BallsList.Add(newBall);
       }
+    }
+    public override IReadOnlyList<Ball> GetBalls() {
+      return BallsList;
     }
 
     #endregion DataAbstractAPI
@@ -81,22 +90,11 @@ namespace TP.ConcurrentProgramming.Data
 
     private readonly Timer MoveTimer;
     private Random RandomGenerator = new();
-    private List<Ball> BallsList = [];
-
+    private readonly List<Ball> BallsList = [];
+    public IReadOnlyList<Ball> Balls => BallsList;
+    
     private void Move(object? x) {
-        // item.Move(new Vector((RandomGenerator.NextDouble() - 0.5) * 10, (RandomGenerator.NextDouble() - 0.5) * 10));
-        
         foreach (Ball current in BallsList) {
-          // foreach (Ball ball in BallsList) {
-          //   if (ball != current) {
-          //     double distance = Math.Sqrt(Math.Pow(ball.Position.x - current.Position.x, 2) + Math.Pow(ball.Position.y - current.Position.y, 2));
-          //     if (distance <= current.Diameter) {
-          //       current.Velocity = Ball.Collison(current, ball);
-          //       // ball.Velocity = Ball.Collison(ball, current);
-          //       // ball.Move((Vector) ball.Velocity);
-          //     }
-          //   }
-          // }
           current.Move((Vector) current.Velocity);
         }
     }

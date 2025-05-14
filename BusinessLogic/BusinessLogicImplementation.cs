@@ -9,7 +9,9 @@
 //_____________________________________________________________________________________________________________________________________
 
 using System.Diagnostics;
+using System.Numerics;
 using UnderneathLayerAPI = TP.ConcurrentProgramming.Data.DataAbstractAPI;
+using Vector = TP.ConcurrentProgramming.Data.Vector;
 
 namespace TP.ConcurrentProgramming.BusinessLogic
 {
@@ -24,11 +26,10 @@ namespace TP.ConcurrentProgramming.BusinessLogic
     {
       layerBellow = underneathLayer == null ? UnderneathLayerAPI.GetDataLayer() : underneathLayer;
     }
-
     #endregion ctor
 
     #region BusinessLogicAbstractAPI
-
+    private List<Ball> ballList = new List<Ball>();
     public override void Dispose()
     {
       if (Disposed)
@@ -44,8 +45,41 @@ namespace TP.ConcurrentProgramming.BusinessLogic
       if (upperLayerHandler == null)
         throw new ArgumentNullException(nameof(upperLayerHandler));
       layerBellow.Start(numberOfBalls, (startingPosition, databall) => upperLayerHandler(new Position(startingPosition.x, startingPosition.x), new Ball(databall)));
+      Thread thread = new Thread(CollisionDetection);
+      thread.Start();
     }
-
+    
+    private void CollisionDetection(object? o) {
+      while (true) {
+        IReadOnlyList<Data.Ball> balls = layerBellow.GetBalls();
+        for (int i = 0; i < balls.Count; i++) {
+          Data.Ball currentBall = balls[i];
+          for (int j = i + 1; j < balls.Count; j++) {
+              Data.Ball otherBall = balls[j];
+              Vector diff = new Vector(currentBall.Position.x - otherBall.Position.x, currentBall.Position.y - otherBall.Position.y);
+              double distance = Math.Sqrt(diff.x * diff.x + diff.y * diff.y);
+              if (currentBall.Diameter >= distance) {
+                Collison(currentBall,  otherBall);  
+              }
+          }
+        }
+        Thread.Sleep(10);
+      }
+    }
+    
+    internal void Collison(Data.Ball a, Data.Ball b) {
+      Vector v1 = (Vector)a.Velocity, v2 = (Vector) b.Velocity;
+      
+      Vector normal = a.Position - b.Position;
+      normal = Vector.Normalize(normal);
+      
+      Vector velocityDiff = v1 - v2;
+      double t = Vector.Dot(normal, velocityDiff); 
+      
+      a.Velocity = v1 - normal * t;
+      b.Velocity = v2 + normal * t;
+    }
+ 
     #endregion BusinessLogicAbstractAPI
 
     #region private

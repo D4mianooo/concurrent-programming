@@ -9,12 +9,14 @@
 //  by introducing yourself and telling us what you do with this community.
 //_____________________________________________________________________________________________________________________________________
 
+using System.Numerics;
+
 namespace TP.ConcurrentProgramming.Data
 {
   /// <summary>
   ///  Two dimensions immutable vector
   /// </summary>
-  internal record Vector : IVector
+  public record Vector : IVector
   {
     #region IVector
 
@@ -49,11 +51,27 @@ namespace TP.ConcurrentProgramming.Data
       x = vector.x * factor;
       y = vector.y * factor;
     }
-    private Vector(Vector vector, Vector vector2) {
+    private Vector(IVector vector, IVector vector2) {
       x = vector.x + vector2.x;
       y = vector.y + vector2.y;
     }
+    public double Length() => Math.Sqrt(x * x + y * y);
+    public static double Magnitude(Vector vector) {
+      return Math.Sqrt(vector.x * vector.x + vector.y * vector.y);
+    }
+    
+    public static double Dot(Vector v1, Vector v2) {
+      return v1.x * v2.x + v1.y * v2.y;
+    }
+    public static Vector Normalize(Vector vector) {
+      return vector / Magnitude(vector);
+    }
     public static Vector operator *(Vector vector, double factor) => new Vector(vector, factor);
-    public static Vector operator +(Vector vector, Vector vector2) => new Vector(vector, vector2);
+    public static Vector operator /(Vector vector, double factor) {
+      if (factor == 0) throw new DivideByZeroException();
+      return new Vector(vector, 1 / factor);
+    }
+    public static Vector operator +(Vector v1, Vector v2) => new Vector(v1, v2);
+    public static Vector operator -(Vector v1, Vector v2) => new Vector(v1, v2 * -1);
   }
 }

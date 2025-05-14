@@ -10,7 +10,7 @@
 
 namespace TP.ConcurrentProgramming.Data
 {
-  internal class Ball : IBall
+  public class Ball : IBall
   {
     #region ctor
     internal Ball(Vector initialPosition, Vector initialVelocity)
@@ -60,15 +60,7 @@ namespace TP.ConcurrentProgramming.Data
       }
       RaiseNewPositionChangeNotification();
     }
-    internal static Vector Collison(Ball b1, Ball b2) {
-      double factor1 = b1.Mass - b2.Mass / b1.Mass + b2.Mass;
-      double factor2 = 2 * b2.Mass - b1.Mass / b1.Mass + b2.Mass;
-          
-      Vector v1 = (Vector) b1.Velocity * factor1;
-      Vector v2 = (Vector) b2.Velocity * factor2;
 
-      return v1 + v2;
-    }
     #endregion private
   }
 }

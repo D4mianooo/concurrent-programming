@@ -24,6 +24,8 @@ namespace TP.ConcurrentProgramming.Data
     #region public API
 
     public abstract void Start(int numberOfBalls, Action<IVector, IBall> upperLayerHandler);
+    public abstract IReadOnlyList<Ball> GetBalls();
+    
     #endregion public API
 
     #region IDisposable
