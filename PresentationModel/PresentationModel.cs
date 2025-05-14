@@ -11,6 +11,7 @@ using System;
 using System.Diagnostics;
 using System.Reactive;
 using System.Reactive.Linq;
+using TP.ConcurrentProgramming.BusinessLogic;
 using UnderneathLayerAPI = TP.ConcurrentProgramming.BusinessLogic.BusinessLogicAbstractAPI;
 
 namespace TP.ConcurrentProgramming.Presentation.Model
@@ -65,7 +66,8 @@ namespace TP.ConcurrentProgramming.Presentation.Model
 
     private void StartHandler(BusinessLogic.IPosition position, BusinessLogic.IBall ball)
     {
-      ModelBall newBall = new ModelBall(position.x, position.y, ball) { Diameter = 20.0 };
+      
+      ModelBall newBall = new ModelBall(position.x, position.y, ball) { Diameter = ball.Diameter };
       BallChanged.Invoke(this, new BallChaneEventArgs() { Ball = newBall });
     }
 

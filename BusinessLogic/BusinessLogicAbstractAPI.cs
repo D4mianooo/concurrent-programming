@@ -60,6 +60,9 @@ namespace TP.ConcurrentProgramming.BusinessLogic
 
   public interface IBall 
   {
+    Data.IVector Velocity { get; set; }
+    public float Diameter  { get; set; }
+    public float Mass  { get; set; }
     event EventHandler<IPosition> NewPositionNotification;
   }
 }

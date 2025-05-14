@@ -59,5 +59,8 @@ namespace TP.ConcurrentProgramming.Data
     event EventHandler<IVector> NewPositionNotification;
 
     IVector Velocity { get; set; }
+    Vector Position { get; set; }
+    float Diameter { get; set; } 
+    float Mass { get; set; }
   }
 }

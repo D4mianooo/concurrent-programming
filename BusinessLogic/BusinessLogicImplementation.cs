@@ -63,7 +63,7 @@ namespace TP.ConcurrentProgramming.BusinessLogic
               }
           }
         }
-        Thread.Sleep(10);
+        Thread.Sleep(1);
       }
     }
     
@@ -73,11 +73,14 @@ namespace TP.ConcurrentProgramming.BusinessLogic
       Vector normal = a.Position - b.Position;
       normal = Vector.Normalize(normal);
       
-      Vector velocityDiff = v1 - v2;
-      double t = Vector.Dot(normal, velocityDiff); 
-      
-      a.Velocity = v1 - normal * t;
-      b.Velocity = v2 + normal * t;
+      Vector relativeVelocity = v1 - v2;
+      double velocityAlongNormal = Vector.Dot(normal, relativeVelocity);
+      if (velocityAlongNormal > 0) {
+        return;
+      }
+      Console.Write(velocityAlongNormal);
+      a.Velocity = v1 - normal * velocityAlongNormal;
+      b.Velocity = v2 + normal * velocityAlongNormal;
     }
  
     #endregion BusinessLogicAbstractAPI

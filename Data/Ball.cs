@@ -32,14 +32,14 @@ namespace TP.ConcurrentProgramming.Data
     public event EventHandler<IVector>? NewPositionNotification;
 
     public IVector Velocity { get; set; }
+    public Vector Position { get; set; }
+    public float Diameter { get; set; }
+    public float Mass { get; set; }
 
     #endregion IBall
 
     #region private
-
-    public Vector Position;
-    public float Diameter;
-    public float Mass;
+    
     private void RaiseNewPositionChangeNotification()
     {
       NewPositionNotification?.Invoke(this, Position);

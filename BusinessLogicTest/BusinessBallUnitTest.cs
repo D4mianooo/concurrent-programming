@@ -8,6 +8,8 @@
 //
 //_____________________________________________________________________________________________________________________________________
 
+using TP.ConcurrentProgramming.Data;
+
 namespace TP.ConcurrentProgramming.BusinessLogic.Test
 {
   [TestClass]
@@ -29,6 +31,9 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
     private class DataBallFixture : Data.IBall
     {
       public Data.IVector Velocity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+      public Vector Position { get; set; }
+      public float Diameter { get; set; }
+      public float Mass { get; set; }
 
       public event EventHandler<Data.IVector>? NewPositionNotification;
 
