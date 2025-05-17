@@ -120,6 +120,9 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
 
       private class DataBallFixture : Data.IBall
       {
+        public void Move() {
+          throw new NotImplementedException();
+        }
         public IVector Velocity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Vector Position { get; set; }
         public float Diameter { get; set; }

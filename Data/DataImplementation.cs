@@ -47,11 +47,10 @@ namespace TP.ConcurrentProgramming.Data
         Vector startingVelocity = new Vector(dir.x * velocity, dir.y * velocity);
         double diameter = random.NextDouble() * 30 + 20;
         float mass = random.NextDouble() > 0.5 ? 1 : 2;
-        Ball newBall = new(startingPosition, startingVelocity, (float) diameter, mass);
+        Ball newBall = new(startingPosition, startingVelocity, (float) diameter, mass, i);
         upperLayerHandler(startingPosition, newBall);
         BallsList.Add(newBall);
       }
-      BallsList.Add(new Ball(new Vector(0, 0), new Vector(5, 0), 20, 2));
     }
     public override IReadOnlyList<Ball> GetBalls() {
       return BallsList;

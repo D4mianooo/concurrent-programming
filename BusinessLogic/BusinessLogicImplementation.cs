@@ -48,62 +48,15 @@ namespace TP.ConcurrentProgramming.BusinessLogic
       IReadOnlyList<Data.Ball> balls = layerBellow.GetBalls();
       
       foreach (var ball in balls) {
+        ball.Balls = balls;
         Thread thread = new Thread(ball.Move);
         thread.IsBackground = true;
         thread.Start();
       }
     }
-    private void CollisionDetection(object? o) {
-      IReadOnlyList<Data.Ball> balls = layerBellow.GetBalls();
-      while (true) {
-        for (int i = 0; i < balls.Count; i++) {
-          Data.Ball currentBall = balls[i];
-          lock (currentBall) {
 
-          }
-
-          for (int j = i + 1; j < balls.Count; j++) {
-            Data.Ball otherBall = balls[j];
-            lock (currentBall) {
-              lock (otherBall) {
-                if (currentBall.Position.x + currentBall.Velocity.x > 400 - 8 - currentBall.Diameter || currentBall.Position.x + currentBall.Velocity.x < 0) {
-                  currentBall.Velocity = new Vector(-currentBall.Velocity.x ,currentBall.Velocity.y);
-                }
-                if (currentBall.Position.y + currentBall.Velocity.y > 400 - 8 - currentBall.Diameter || currentBall.Position.y + currentBall.Velocity.y < 0) {
-                  currentBall.Velocity= new Vector(currentBall.Velocity.x ,-currentBall.Velocity.y);
-                }
-              }
-              Vector diff = new Vector(currentBall.Position.x - otherBall.Position.x, currentBall.Position.y - otherBall.Position.y);
-              double distance = Math.Sqrt(diff.x * diff.x + diff.y * diff.y);
-              if (currentBall.Diameter / 2 + otherBall.Diameter / 2 > distance) {
-                Collison(currentBall,  otherBall);  
-              }
-            }
-          }
-        }
-        Thread.Sleep(10);
-      }
-    }
     
-    internal void Collison(Data.Ball a, Data.Ball b) {
-      Vector v1 = (Vector)a.Velocity, v2 = (Vector) b.Velocity;
-      
-      Vector normal = a.Position - b.Position;
-      normal = Vector.Normalize(normal);
-      
-      Vector relativeVelocity = v1 - v2;
-      double velocityAlongNormal = Vector.Dot(normal, relativeVelocity);
 
-      if (velocityAlongNormal >= 0) {
-        return;
-      }
-      
-      velocityAlongNormal *= -2;
-      velocityAlongNormal *= a.Mass * b.Mass / (a.Mass + b.Mass);
-
-      a.Velocity = v1 + normal * velocityAlongNormal/a.Mass;
-      b.Velocity = v2 - normal * velocityAlongNormal/b.Mass;
-    }
  
     #endregion BusinessLogicAbstractAPI
 
