@@ -47,6 +47,14 @@ namespace TP.ConcurrentProgramming.Data
     public void Move() {
       while (true) {
         Position = new Vector(Position.x + Velocity.x, Position.y + Velocity.y);
+
+        if (Position.x + Velocity.x > 400 - 8 - Diameter || Position.x + Velocity.x < 0) {
+          Velocity = new Vector(-Velocity.x ,Velocity.y);
+        }
+        if (Position.y + Velocity.y > 420 - 8 - Diameter || Position.y + Velocity.y < 0) {
+          Velocity= new Vector(Velocity.x ,-Velocity.y);
+        }
+
         RaiseNewPositionChangeNotification();
         Thread.Sleep(20);
       }

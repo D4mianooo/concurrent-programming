@@ -59,12 +59,7 @@ namespace TP.ConcurrentProgramming.BusinessLogic
         for (int i = 0; i < balls.Count; i++) {
           Data.Ball currentBall = balls[i];
           lock (currentBall) {
-            if (currentBall.Position.x + currentBall.Velocity.x > 400 - 8 - currentBall.Diameter || currentBall.Position.x + currentBall.Velocity.x < 0) {
-              currentBall.Velocity = new Vector(-currentBall.Velocity.x ,currentBall.Velocity.y);
-            }
-            if (currentBall.Position.y + currentBall.Velocity.y > 400 - 8 - currentBall.Diameter || currentBall.Position.y + currentBall.Velocity.y < 0) {
-              currentBall.Velocity= new Vector(currentBall.Velocity.x ,-currentBall.Velocity.y);
-            }
+
           }
 
           for (int j = i + 1; j < balls.Count; j++) {
