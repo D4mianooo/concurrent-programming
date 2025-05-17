@@ -45,9 +45,13 @@ namespace TP.ConcurrentProgramming.BusinessLogic
       if (upperLayerHandler == null)
         throw new ArgumentNullException(nameof(upperLayerHandler));
       layerBellow.Start(numberOfBalls, (startingPosition, databall) => upperLayerHandler(new Position(startingPosition.x, startingPosition.x), new Ball(databall)));
-      Thread thread = new Thread(CollisionDetection);
-      thread.Start();
-
+      IReadOnlyList<Data.Ball> balls = layerBellow.GetBalls();
+      
+      foreach (var ball in balls) {
+        Thread thread = new Thread(ball.Move);
+        thread.IsBackground = true;
+        thread.Start();
+      }
     }
     private void CollisionDetection(object? o) {
       IReadOnlyList<Data.Ball> balls = layerBellow.GetBalls();

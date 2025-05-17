@@ -30,7 +30,6 @@ namespace TP.ConcurrentProgramming.Data
     #region IBall
 
     public event EventHandler<IVector>? NewPositionNotification;
-
     public IVector Velocity { get; set; }
     public Vector Position { get; set; }
     public float Diameter { get; set; }
@@ -45,9 +44,12 @@ namespace TP.ConcurrentProgramming.Data
       NewPositionNotification?.Invoke(this, Position);
     }
 
-    internal void Move(Vector delta) {
-      Position = new Vector(Position.x + delta.x, Position.y + delta.y);
-      RaiseNewPositionChangeNotification();
+    public void Move() {
+      while (true) {
+        Position = new Vector(Position.x + Velocity.x, Position.y + Velocity.y);
+        RaiseNewPositionChangeNotification();
+        Thread.Sleep(20);
+      }
     }
 
     #endregion private
