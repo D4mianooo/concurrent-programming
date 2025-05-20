@@ -14,12 +14,6 @@ using System.Numerics;
 
 namespace TP.ConcurrentProgramming.Data
 {
-  public class BallManager
-  {
-    private readonly List<Ball> BallsList = [];
-    public IReadOnlyList<Ball> Balls => BallsList;
-  }
-  
   internal class DataImplementation : DataAbstractAPI
   {
     #region ctor
@@ -49,16 +43,8 @@ namespace TP.ConcurrentProgramming.Data
         float mass = random.NextDouble() > 0.5 ? 1 : 2;
         Ball newBall = new(startingPosition, startingVelocity, (float) diameter, mass, i);
         upperLayerHandler(startingPosition, newBall);
-        BallsList.Add(newBall);
       }
-      // Vector t = new Vector(40, 40);
-      // Ball b = new Ball(t, new Vector(0, 0), 20, 2, numberOfBalls);
-      //   BallsList.Add(b);
-      //   upperLayerHandler(t, b);
 
-    }
-    public override IReadOnlyList<Ball> GetBalls() {
-      return BallsList;
     }
 
     #endregion DataAbstractAPI

@@ -8,6 +8,7 @@
 //
 //_____________________________________________________________________________________________________________________________________
 
+using System.Buffers.Text;
 using System.Diagnostics;
 using System.Numerics;
 using UnderneathLayerAPI = TP.ConcurrentProgramming.Data.DataAbstractAPI;
@@ -29,7 +30,8 @@ namespace TP.ConcurrentProgramming.BusinessLogic
     #endregion ctor
 
     #region BusinessLogicAbstractAPI
-    private List<Ball> ballList = new List<Ball>();
+
+    private List<Ball> Balls = new List<Ball>();
     public override void Dispose()
     {
       if (Disposed)
@@ -44,14 +46,19 @@ namespace TP.ConcurrentProgramming.BusinessLogic
         throw new ObjectDisposedException(nameof(BusinessLogicImplementation));
       if (upperLayerHandler == null)
         throw new ArgumentNullException(nameof(upperLayerHandler));
-      layerBellow.Start(numberOfBalls, (startingPosition, databall) => upperLayerHandler(new Position(startingPosition.x, startingPosition.x), new Ball(databall)));
-      IReadOnlyList<Data.Ball> balls = layerBellow.GetBalls();
-      foreach (var ball in balls) {
-        ball.Balls = balls;
-        Thread thread = new Thread(ball.Move);
-        thread.IsBackground = true;
-        thread.Start();
-      }
+      layerBellow.Start(numberOfBalls,
+        (startingPosition, databall) =>
+        {
+          Ball ball = new Ball(databall, Balls);
+          Thread thread = new Thread(ball.Move);
+          lock (Balls) {
+            Balls.Add(ball);
+          }
+          thread.IsBackground = true;
+          thread.Start();
+          upperLayerHandler(new Position(startingPosition.x, startingPosition.x), ball);
+
+        });
     }
     
     #endregion BusinessLogicAbstractAPI

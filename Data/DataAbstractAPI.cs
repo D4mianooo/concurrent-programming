@@ -24,7 +24,6 @@ namespace TP.ConcurrentProgramming.Data
     #region public API
 
     public abstract void Start(int numberOfBalls, Action<IVector, IBall> upperLayerHandler);
-    public abstract IReadOnlyList<Ball> GetBalls();
     
     #endregion public API
 
@@ -56,8 +55,6 @@ namespace TP.ConcurrentProgramming.Data
 
   public interface IBall
   {
-    event EventHandler<IVector> NewPositionNotification;
-    public void Move();
     IVector Velocity { get; set; }
     Vector Position { get; set; }
     float Diameter { get; set; } 
