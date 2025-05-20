@@ -46,7 +46,6 @@ namespace TP.ConcurrentProgramming.BusinessLogic
         throw new ArgumentNullException(nameof(upperLayerHandler));
       layerBellow.Start(numberOfBalls, (startingPosition, databall) => upperLayerHandler(new Position(startingPosition.x, startingPosition.x), new Ball(databall)));
       IReadOnlyList<Data.Ball> balls = layerBellow.GetBalls();
-      
       foreach (var ball in balls) {
         ball.Balls = balls;
         Thread thread = new Thread(ball.Move);
@@ -54,10 +53,7 @@ namespace TP.ConcurrentProgramming.BusinessLogic
         thread.Start();
       }
     }
-
     
-
- 
     #endregion BusinessLogicAbstractAPI
 
     #region private

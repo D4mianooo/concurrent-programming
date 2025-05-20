@@ -51,6 +51,11 @@ namespace TP.ConcurrentProgramming.Data
         upperLayerHandler(startingPosition, newBall);
         BallsList.Add(newBall);
       }
+      // Vector t = new Vector(40, 40);
+      // Ball b = new Ball(t, new Vector(0, 0), 20, 2, numberOfBalls);
+      //   BallsList.Add(b);
+      //   upperLayerHandler(t, b);
+
     }
     public override IReadOnlyList<Ball> GetBalls() {
       return BallsList;
