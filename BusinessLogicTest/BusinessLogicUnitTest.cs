@@ -64,9 +64,6 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
 
     private class DataLayerConstructorFixcure : Data.DataAbstractAPI
     {
-      public override IReadOnlyList<Data.Ball> GetBalls() {
-        throw new NotImplementedException();
-      }
       public override void Dispose()
       { }
 
@@ -80,9 +77,6 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
     {
       internal bool Disposed = false;
 
-      public override IReadOnlyList<Data.Ball> GetBalls() {
-        throw new NotImplementedException();
-      }
       public override void Dispose()
       {
         Disposed = true;
@@ -99,9 +93,6 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
       internal bool StartCalled = false;
       internal int NumberOfBallseCreated = -1;
 
-      public override IReadOnlyList<Data.Ball> GetBalls() {
-        throw new NotImplementedException();
-      }
       public override void Dispose()
       { }
 
@@ -123,7 +114,7 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
         public void Move() {
           throw new NotImplementedException();
         }
-        public IVector Velocity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IVector Velocity { get; set; }
         public Vector Position { get; set; }
         public float Diameter { get; set; }
         public float Mass { get; set; }

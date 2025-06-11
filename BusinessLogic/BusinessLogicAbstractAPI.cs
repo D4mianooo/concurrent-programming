@@ -8,6 +8,8 @@
 //
 //_____________________________________________________________________________________________________________________________________
 
+using TP.ConcurrentProgramming.Data;
+
 namespace TP.ConcurrentProgramming.BusinessLogic
 {
   public abstract class BusinessLogicAbstractAPI : IDisposable
@@ -63,6 +65,7 @@ namespace TP.ConcurrentProgramming.BusinessLogic
     Data.IVector Velocity { get; set; }
     public float Diameter  { get; set; }
     public float Mass  { get; set; }
+    public Vector Position  { get; set; }
     event EventHandler<IPosition> NewPositionNotification;
   }
 }

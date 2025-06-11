@@ -8,6 +8,7 @@
 //__________________________________________________________________________________________
 
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,6 +18,7 @@ namespace TP.ConcurrentProgramming.PresentationView
 {
   public partial class MainWindow : Window
   {
+    private Timer timer = null;
     public MainWindow()
     {
       Random random = new Random();
@@ -25,8 +27,15 @@ namespace TP.ConcurrentProgramming.PresentationView
       double screenWidth = SystemParameters.PrimaryScreenWidth;
       double screenHeight = SystemParameters.PrimaryScreenHeight;
       viewModel.Start(random.Next(5, 10));
+      timer = new Timer(Add, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(1000));
     }
-
+    public void Add(object? o) {
+      this.Dispatcher.Invoke(() =>
+      {
+        MainWindowViewModel viewModel = (MainWindowViewModel)DataContext;
+        viewModel.Start(1);
+      });
+    }
     /// <summary>
     /// Raises the <seealso cref="System.Windows.Window.Closed"/> event.
     /// </summary>
@@ -35,6 +44,7 @@ namespace TP.ConcurrentProgramming.PresentationView
     {
       if (DataContext is MainWindowViewModel viewModel)
         viewModel.Dispose();
+        timer.Dispose();
       base.OnClosed(e);
     }
     private void Button_Click(object sender, RoutedEventArgs e) {

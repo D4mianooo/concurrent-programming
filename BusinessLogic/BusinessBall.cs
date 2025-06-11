@@ -8,12 +8,38 @@
 //
 //_____________________________________________________________________________________________________________________________________
 
+using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 using TP.ConcurrentProgramming.Data;
 
 namespace TP.ConcurrentProgramming.BusinessLogic
 {
+  internal class FileWriter {
+    private static ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
+    
+    public void WriteToFile(string filename, string content) {
+      _lock.EnterWriteLock();
+      try {
+        using (StreamWriter sw = new StreamWriter(filename, true)) {
+          sw.WriteLine(content);
+        }
+      }
+      finally {
+        _lock.ExitWriteLock();
+      }
+    }
+  }
+
   internal class Ball : IBall
   {
+    public Ball(Data.IBall ball) {
+      Position = ball.Position;
+      Diameter = ball.Diameter;
+      Mass = ball.Mass;
+      Velocity = ball.Velocity;
+      this.balls = new List<Ball>();
+      _fileWriter = new FileWriter();
+    }
     public Ball(Data.IBall ball, List<Ball> balls)
     {
       Position = ball.Position;
@@ -21,12 +47,15 @@ namespace TP.ConcurrentProgramming.BusinessLogic
       Mass = ball.Mass;
       Velocity = ball.Velocity;
       this.balls = balls;
+      _fileWriter = new FileWriter();
+
     }
 
     #region IBall
-
+    private FileWriter _fileWriter;
+ 
     private IReadOnlyList<Ball> balls;
-    private Vector Position { get; set; }
+    public Vector Position { get; set; }
     public IVector Velocity { get; set; }
     public float Diameter { get; set; }
     public float Mass { get; set; }
@@ -38,6 +67,7 @@ namespace TP.ConcurrentProgramming.BusinessLogic
     public void Move() {
       while (true) {
         CollisionDetection();
+        
         if (Position.x + Velocity.x > 400 - 8 - Diameter || Position.x + Velocity.x < 0) {
           lock (this) {
             Velocity = new Vector(-Velocity.x ,Velocity.y);
@@ -48,9 +78,11 @@ namespace TP.ConcurrentProgramming.BusinessLogic
             Velocity = new Vector(Velocity.x ,-Velocity.y);
           }
         }
+
         lock (this) {
           Position = new Vector(Position.x + Velocity.x, Position.y + Velocity.y);
         }
+        _fileWriter.WriteToFile("Z:\\Projects\\04_Csharp\\Concurrent-Programming\\BusinessLogic\\Diagnostics\\log.txt", Position.ToString());
         RaiseNewPositionChangeNotification();
         Thread.Sleep(10);
       }
@@ -60,14 +92,17 @@ namespace TP.ConcurrentProgramming.BusinessLogic
     }
 
     private void CollisionDetection() {
-      foreach (Ball otherBall in balls) {
-        Vector diff = new Vector(this.Position.x - otherBall.Position.x, this.Position.y - otherBall.Position.y);
-        double distance = Math.Sqrt(diff.x * diff.x + diff.y * diff.y);
-        double halfDiameters = (Diameter + otherBall.Diameter) / 2;
-        if (halfDiameters > distance) {
-          Collison(this, otherBall);
+      lock (balls) {
+        foreach (Ball otherBall in balls) {
+          Vector diff = new Vector(this.Position.x - otherBall.Position.x, this.Position.y - otherBall.Position.y);
+          double distance = Math.Sqrt(diff.x * diff.x + diff.y * diff.y);
+          double halfDiameters = (Diameter + otherBall.Diameter) / 2;
+          if (halfDiameters > distance) {
+            Collison(this, otherBall);
+          }
         }
       }
+
     }
 
     internal void Collison(Ball a, Ball b) {

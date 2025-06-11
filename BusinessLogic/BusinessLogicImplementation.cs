@@ -16,6 +16,9 @@ using Vector = TP.ConcurrentProgramming.Data.Vector;
 
 namespace TP.ConcurrentProgramming.BusinessLogic
 {
+  internal static class RealTime {
+    
+  }
   internal class BusinessLogicImplementation : BusinessLogicAbstractAPI
   {
     #region ctor
@@ -26,6 +29,7 @@ namespace TP.ConcurrentProgramming.BusinessLogic
     internal BusinessLogicImplementation(UnderneathLayerAPI? underneathLayer)
     {
       layerBellow = underneathLayer == null ? UnderneathLayerAPI.GetDataLayer() : underneathLayer;
+ 
     }
     #endregion ctor
 
@@ -42,6 +46,7 @@ namespace TP.ConcurrentProgramming.BusinessLogic
 
     public override void Start(int numberOfBalls, Action<IPosition, IBall> upperLayerHandler)
     {
+
       if (Disposed)
         throw new ObjectDisposedException(nameof(BusinessLogicImplementation));
       if (upperLayerHandler == null)
@@ -50,13 +55,12 @@ namespace TP.ConcurrentProgramming.BusinessLogic
         (startingPosition, databall) =>
         {
           Ball ball = new Ball(databall, Balls);
+          upperLayerHandler(new Position(startingPosition.x, startingPosition.x), ball);
           Thread thread = new Thread(ball.Move);
           lock (Balls) {
             Balls.Add(ball);
           }
-          thread.IsBackground = true;
           thread.Start();
-          upperLayerHandler(new Position(startingPosition.x, startingPosition.x), ball);
 
         });
     }

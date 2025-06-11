@@ -48,6 +48,7 @@ namespace TP.ConcurrentProgramming.Presentation.Model.Test
       public IVector Velocity { get; set; }
       public float Diameter { get; set; }
       public float Mass { get; set; }
+      public Vector Position { get; set; }
       public event EventHandler<IPosition>? NewPositionNotification;
 
       public void Dispose()

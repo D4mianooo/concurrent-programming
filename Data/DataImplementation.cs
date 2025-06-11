@@ -42,6 +42,7 @@ namespace TP.ConcurrentProgramming.Data
         double diameter = random.NextDouble() * 30 + 20;
         float mass = random.NextDouble() > 0.5 ? 1 : 2;
         Ball newBall = new(startingPosition, startingVelocity, (float) diameter, mass, i);
+        BallsList.Add(newBall);
         upperLayerHandler(startingPosition, newBall);
       }
 

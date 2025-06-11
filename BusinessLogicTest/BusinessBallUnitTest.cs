@@ -30,12 +30,12 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
 
     private class DataBallFixture : Data.IBall
     {
-      public Data.IVector Velocity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+      public Data.IVector Velocity { get; set; }
       public Vector Position { get; set; }
       public float Diameter { get; set; }
       public float Mass { get; set; }
 
-      public event EventHandler<Data.IVector>? NewPositionNotification;
+      public event EventHandler<IPosition> NewPositionNotification;
 
       public void Move()
       {
@@ -43,8 +43,7 @@ namespace TP.ConcurrentProgramming.BusinessLogic.Test
       }
     }
 
-    private class VectorFixture : Data.IVector
-    {
+    private class VectorFixture : Data.IVector, IPosition {
       internal VectorFixture(double X, double Y)
       {
         x = X; y = Y;
